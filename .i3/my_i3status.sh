@@ -17,8 +17,10 @@
 i3status --config ~/.i3/i3status.conf | (read line && echo $line && read line && echo $line && while :
 do
   read line
+  net_throughput=$(~/.i3/measure-net-speed.bash)
+  net_throughput="{\"name\":\"net_speed\",\"full_text\":\"${net_throughput}\",\"color\":\""#00FF00"\"},"
   current_weather=$(curl -s http://weather.gc.ca/rss/city/on-82_e.xml | awk -F "[><]" '/Current Conditions:/{gsub("Current Conditions: ",""); gsub("&#xB0;","\xC2\xB0"); print $3}')
   current_weather="{\"name\":\"weather\",\"full_text\":\"${current_weather}\",\"color\":\""#0066CC"\"},"
-  echo "${line/[/[$dat $current_weather}" || exit 1
+  echo "${line/[/[$current_weather $net_throughput}" || exit 1
 done)
 
