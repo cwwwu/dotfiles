@@ -153,6 +153,7 @@ bar {
 }
 
 assign [class="(?i)thunderbird"] 9
+assign [class="(?i)google-chrome" title="^(?:[^G]+|G(?!oogle Chrome))*$"] 8
 
 exec thunderbird
 exec google-chrome
